@@ -1,0 +1,12 @@
+{
+  "preload": "preload.js",
+  "logo": "logo.jpg",
+  "platform": ["darwin", "win32"],
+  "features": [
+    {
+      "code": "tmdb",
+      "explain": "match movie info from TMDB",
+      "cmds": ["tmdb"]
+    }
+  ]
+}
