@@ -31,14 +31,16 @@ window.exports = {
         }
 
         text.match(/[\w().-]+\.(\d{4})\..*/)
-        const match = text.match(/(..+) (\d{4})/) ||
-          text.match(/(..+) \((\d{4})\)/) ||
-          text.match(/Top\d{3}\.([^\x00-\xff]+)\.([\w().]+)\.(\d{4})\..*/)
+        const match = text.match(/^(..+) (\d{4})$/) ||
+          text.match(/^(..+) \((\d{4})\)$/) ||
+          text.match(/Top\d{3}\.([^\x00-\xff]+)\.([\w().]+)\.(\d{4})\..*/) ||
+          text.match(/([\w().-]+)\.(\d{4})\..*/) ||
+          text.match(/([\w().\s-]+)\s(\d{4})\s.*/)
 
         if (!!match) {
           const [ query, year ] = match.slice(match.length - 2)
           window.searchMovie({
-            query: query.replace(/\./g, ' ').trim(),
+            query: query.replace(/[.\-]/g, ' ').trim(),
             year: year.trim()
           }).then(callback)
         }
