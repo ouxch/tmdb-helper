@@ -8,8 +8,8 @@ const searchMovie = ({ query, year }) => {
   return axios.get(url)
     .then(({ status, data }) => {
       if (status === 200 && !!data?.results?.length) {
-        return data.results.map(({ title, original_title, release_date }) => {
-          return { title: `${title || original_title} (${release_date.split('-')[0]})` }
+        return data.results.map(({ title, original_title, release_date, overview: description }) => {
+          return { title: `${title || original_title} (${release_date.split('-')[0]})`, description }
         })
       }
       return []
