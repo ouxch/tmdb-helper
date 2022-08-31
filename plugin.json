@@ -7,6 +7,11 @@
       "code": "tmdb",
       "explain": "match movie info from TMDB",
       "cmds": ["tmdb"]
+    },
+    {
+      "code": "tvdb",
+      "explain": "match tv info from TMDB",
+      "cmds": ["tvdb"]
     }
   ]
 }

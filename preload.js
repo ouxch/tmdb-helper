@@ -1,8 +1,9 @@
 // noinspection JSUnresolvedVariable,JSUnusedGlobalSymbols,JSUnresolvedFunction
 
-const { parseText, searchMovie } = require('./tmdb')
+const { parseText, searchMovie, searchTv } = require('./tmdb')
 
 window.searchMovie = searchMovie
+window.searchTv = searchTv
 window.parseText = parseText
 
 window.exports = {
@@ -19,7 +20,23 @@ window.exports = {
         utools.hideMainWindow()
         utools.simulateKeyboardTap('v', 'command')
       },
-      placeholder: "从TMDB搜索电影信息，格式：name year"
+      placeholder: "从TMDB搜索电影信息"
     }
-  }
+  },
+  "tvdb": {
+    mode: "list",
+    args: {
+      // enter: (action, callback) => {},
+      search: (action, text, callback) => {
+        const parse = window.parseText(text)
+        !!parse ? window.searchTv(parse).then(callback) : callback([])
+      },
+      select: (action, itemData) => {
+        utools.copyText(itemData.title)
+        utools.hideMainWindow()
+        utools.simulateKeyboardTap('v', 'command')
+      },
+      placeholder: "从TMDB搜索剧集信息"
+    }
+  },
 }

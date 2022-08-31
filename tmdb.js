@@ -16,6 +16,21 @@ const searchMovie = ({ query, year }) => {
     .catch(() => [])
 }
 
+const searchTv = ({ query, year }) => {
+  const url = `https://api.themoviedb.org/3/search/tv?api_key=${API_KEY}&language=zh&query=${encodeURIComponent(query)}&first_air_date_year=${year}`
+  console.log(url)
+  return axios.get(url)
+    .then(({ status, data }) => {
+      if (status === 200 && !!data?.results?.length) {
+        return data.results.map(({ name, original_name, first_air_date, overview: description }) => {
+          return { title: `${name || original_name} (${first_air_date.split('-')[0]})`, description }
+        })
+      }
+      return []
+    })
+    .catch(() => [])
+}
+
 const parseText = (text) => {
   console.log(text)
   if (!text) {
@@ -28,12 +43,13 @@ const parseText = (text) => {
     .replace('Director\'s.Cut', '')
 
   const match = name.match(/([\u4e00-\u9fa5]+)[.\s]+.*[.\s]+(\d{4})[.\s]+/) ||
-    name.match(/([\u4e00-\u9fa5]+)[.\s]+(\d{4})[.\s]+/) ||
-    name.match(/[.\s]+([a-zA-Z.\sⅠⅡⅢⅣⅤⅥⅦⅧⅨ\d]+)[.\s]+(\d{4})[.\s]+/)
+    name.match(/([\u4e00-\u9fa5]+)[.\s]+.*[.\s]+(\d{4})[.\s]+/) ||
+    name.match(/[.\s]+([a-zA-Z.\sⅠⅡⅢⅣⅤⅥⅦⅧⅨ\d]+)[.\s]+(\d{4})[.\s]+/) ||
+    name.match(/([a-zA-Z\d\s]+)[.\s]+\((\d{4})\)/)
 
   const length = match?.length ?? 0
   if (length === 3 || length === 4) {
-    console.log([ ...match ])
+    console.log([...match])
     const query = match[1]
     const year = match[length - 1]
     const parse = {
@@ -48,5 +64,5 @@ const parseText = (text) => {
 }
 
 module.exports = {
-  searchMovie, parseText
+  searchMovie, searchTv, parseText
 }
