@@ -4,6 +4,9 @@
   "main": "preload.js",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.27.2"
+    "axios": "1.6.7"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
   }
 }

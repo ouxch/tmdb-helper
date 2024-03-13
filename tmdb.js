@@ -37,30 +37,21 @@ const parseText = (text) => {
     console.log('text is empty')
     return
   }
-  const name = text.replace(/[.\-]/g, ' ')
-    .replace(/\(.*版\)/, '')
-    .replace('aka The Professional Directors Cut', '')
-    .replace('Director\'s.Cut', '')
 
-  const match = name.match(/([\u4e00-\u9fa5]+)[.\s]+.*[.\s]+(\d{4})[.\s]+/) ||
-    name.match(/([\u4e00-\u9fa5]+)[.\s]+.*[.\s]+(\d{4})[.\s]+/) ||
-    name.match(/[.\s]+([a-zA-Z.\sⅠⅡⅢⅣⅤⅥⅦⅧⅨ\d]+)[.\s]+(\d{4})[.\s]+/) ||
-    name.match(/([a-zA-Z\d\s]+)[.\s]+\((\d{4})\)/)
-
-  const length = match?.length ?? 0
-  if (length === 3 || length === 4) {
-    console.log([...match])
-    const query = match[1]
-    const year = match[length - 1]
+  // Extract title and year from the filename
+  const match = text.match(/(.+?)\.(\d{4})\./)
+  if (match) {
+    // Replace underscores with spaces for the title
+    const title = match[1].replace(/\./g, ' ')
+    const year = match[2]
     const parse = {
-      query: query.trim(),
-      year: year.trim()
+      query: title,
+      year: year
     }
     console.log(parse)
     return parse
-  } else {
-    console.log('text not match')
   }
+  console.log('text not match')
 }
 
 module.exports = {

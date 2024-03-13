@@ -20,7 +20,7 @@ window.exports = {
         utools.hideMainWindow()
         utools.simulateKeyboardTap('v', 'command')
       },
-      placeholder: "从TMDB搜索电影信息"
+      placeholder: "从 themoviedb.org 搜索电影信息"
     }
   },
   "tvdb": {
@@ -36,7 +36,7 @@ window.exports = {
         utools.hideMainWindow()
         utools.simulateKeyboardTap('v', 'command')
       },
-      placeholder: "从TMDB搜索剧集信息"
+      placeholder: "从 themoviedb.org 搜索剧集信息"
     }
   },
 }
